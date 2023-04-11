@@ -1,7 +1,6 @@
 # Event-Finder
 
-This Event Finder APP is created using Angular and Node.js.
-<hr>
+### This Event Finder APP is created using Angular and Node.js.
 
 App Deployed using GCP: https://my-angular-app8.wl.r.appspot.com/search
 
