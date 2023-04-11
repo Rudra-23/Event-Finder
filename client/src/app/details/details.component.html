@@ -1,0 +1,207 @@
+
+<div class="row">
+    <p class="text-white text-center details_title">{{details.title}}
+        <button class="btn btn primary text-white" *ngIf="isFav == true" (click)="RemoveFav()">
+            <div class="circle">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+
+        </button>
+        <button class="btn btn primary text-white" *ngIf="isFav == false" (click)="saveToFav()">
+            <div class="circle">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+        </button>
+    </p>
+</div>
+<div class="row">
+    <mat-tab-group class="p-0" mat-align-tabs="center" mat-stretch-tabs="false">
+        <mat-tab label="Events">
+            <div class="row m-0">
+                <div class="col-md-5 col-12 pt-4 text-center">
+                    <div class="items" *ngIf="details.Date != '' || details.Time != '' ">
+                        <span>Date</span>
+                        <p>{{details.Date}} {{details.Time}}</p>
+                    </div>
+                    <div class="items" *ngIf="details.artistTeam.length != 0">
+                        <span>Artists/Team</span>
+                        <p>{{details.artistTeam | formatArrays}}</p>
+                    </div>
+                    <div class="items" *ngIf="details.venue != '' ">
+                        <span>Venue</span>
+                        <p>{{details.venue}}</p>
+                    </div>
+                    <div class="items" *ngIf="details.genre_arr.length != 0">
+                        <span>Genres</span>
+                        <p>{{details.genre_arr | formatArrays}}</p>
+                    </div>
+                    <div class="items" *ngIf="details.price_ranges_min!= '' && details.price_ranges_max!='' ">
+                        <span>Price Ranges</span>
+                        <p>{{details.price_ranges_min}} - {{details.price_ranges_max}}</p>
+                    </div>
+                    <div class="items row justify-content-center" *ngIf="details.code != ''">
+                        <span>Ticket Status</span>
+                        <p [class]="details.color" class="col-lg-3 col-3 rounded text-white mb-3">{{details.code}}</p>
+                    </div>
+                    <div class="items" *ngIf="details.buyTicketAt != ''">
+                        <span>Buy Ticket At:</span>
+                        <p><a [href]="details.buyTicketAt" target="_blank"><u>Ticketmaster</u></a> </p>
+                    </div>
+                </div>
+                <div class="col-md-7 col-12 d-flex justify-content-center align-items-center">
+                    <img *ngIf="details.seatmap !=''" class="seatmap" [src]="details.seatMap" alt="Seatmap" width="80%">
+                </div>
+
+            </div>
+            <div class="row m-auto my-3">
+                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                    <span class="mx-2"> Share on: </span>
+                    <a class="mx-2" [href]="twitter" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a class="mx-2" [href]="facebook" target="_blank">
+                        <i class="fa-brands fa-square-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Artists/Teams">
+            <ng-container *ngIf="musicArtists.length == 0">
+                <app-message [message]="'No Music related artist details to show'"></app-message>
+            </ng-container>
+
+
+            <ngb-carousel *ngIf="musicArtists.length != 0" [showNavigationIndicators]="false" class="artist_carousel" [interval]="0"
+                [showNavigationArrows]="musicArtists.length == 1?false:true">
+                <ng-template ngbSlide *ngFor="let artist of musicArtists">
+                    <div class="container mx-1">
+                        <div class="row mt-3 mx-5">
+                            <div class="col-md-3 col-12 d-flex flex-column justify-content-center align-items-center
+                                text-center">
+                                <div class="mb-2">
+                                    <img class="artist_image" [src]="artist.image" alt="" srcset="" />
+                                </div>
+                                <span class="my-2">{{artist.name}}</span>
+                            </div>
+                            <div class="col-md-3 col-12 d-flex flex-column justify-content-center">
+                                <div class="h-50 d-flex flex-column align-items-center">
+                                    <span class="mb-2">Popularity</span>
+                                    <div>
+                                        <mat-progress-spinner color="warn" mode="determinate"
+                                            [value]="artist.popularity" [diameter]="48">
+                                        </mat-progress-spinner>
+                                        <div style="position:relative; top: -36px; left: 14px;">{{artist.popularity}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12 d-flex flex-column justify-content-center">
+                                <div class="h-50 d-flex flex-column align-items-center">
+                                    <span class="mb-2">Followers</span>
+                                    <p>{{artist.followers| number}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12 d-flex flex-column justify-content-center">
+                                <div class="h-50 d-flex flex-column align-items-center">
+                                    <span class="mb-2">Spotify Link</span>
+                                    <p><a [href]="artist.spotify_link" target="_blank"><i class="fa-brands fa-spotify"></i></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row my-4 mx-5 col-10">
+                            <span>Album Featuring {{artist.name}}</span>
+                        </div>
+
+                        <div class="row mb-2 mx-5">
+                            <ng-container *ngFor="let images of artist.albums">
+                                <div class="col-md-4 col-12 d-flex justify-content-center align-items-center my-2">
+                                    <img [src]="images" width="200px" height="200px" alt="" srcset="">
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+
+        </mat-tab>
+        <mat-tab label="Venue">
+            <div class="container row mt-3 text-center">
+                <div class="col-md-6 col-12">
+                    <ng-container *ngIf="venue_details.name != ''">
+                        <span>Name</span>
+                        <p>{{venue_details.name}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="venue_details.street_address != ',,'">
+                        <span>Address</span>
+                        <p>{{venue_details.street_address}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="venue_details.phone_number != ''">
+                        <span>Phone Number</span>
+                        <p>{{venue_details.phone_number}}</p>
+                    </ng-container>
+                </div>
+                <div class="col-md-6 col-12">
+                    <ng-container *ngIf="venue_details.open_hours != ''">
+                        <span>Open Hours</span>
+                        <div class="container mb-2">
+                            <p [ngClass]="{'text-clamp' :  open_hours}">{{venue_details.open_hours}}</p>
+                            <ng-container *ngIf="open_hours == true">
+                                <div class="btn btn-link border-0" (click)="open_hours = false"><u class="toggle">Show More </u><i class="arrow down"></i></div>
+                            </ng-container>
+                            <ng-container *ngIf="open_hours == false">
+                                <div class="btn btn-link border-0" (click)="open_hours = true"><u class="toggle">Show Less </u><i class="arrow up"></i></div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="venue_details.general_rule != ''">
+                        <span>General Rule</span>
+                        <div class="container mb-2">
+                            <p [ngClass]="{'text-clamp' :  general_rule}">{{venue_details.general_rule}}</p>
+                            <ng-container *ngIf="general_rule == true">
+                                <div class="btn btn-link border-0" (click)="general_rule = false"><u class="toggle">Show More </u><i class="arrow down"></i>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="general_rule == false">
+                                <div class="btn btn-link border-0" (click)="general_rule = true"><u class="toggle">Show Less </u><i class="arrow up"></i></div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="venue_details.child_rule != ''">
+                        <span>Child Rule</span>
+                        <div class="container mb-2">
+                            <p [ngClass]="{'text-clamp' :  child_rule}">{{venue_details.child_rule}}</p>
+                            <ng-container *ngIf="child_rule == true">
+                                <div (click)="child_rule = false"><u class="toggle">Show More </u><i class="arrow down"></i></div>
+                            </ng-container>
+                            <ng-container *ngIf="child_rule == false">
+                                <div (click)="child_rule = true"><u class="toggle">Show Less </u><i class="arrow up"></i></div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center my-2">
+                    <ng-template #content let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">Event Venue</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <google-map [options]="mapOptions" width="100%" height="400px">
+                                    <map-marker [position]="marker.position"></map-marker>
+                                </google-map>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-start">
+                            <button type="button" class="btn btn-dark"
+                                (click)="modal.close('Save click')">Close</button>
+                        </div>
+                    </ng-template>
+                    <button class="btn btn-danger" (click)="open(content)">Show venue on Google map</button>
+                </div>
+            </div>
+
+        </mat-tab>
+    </mat-tab-group>
+</div>
