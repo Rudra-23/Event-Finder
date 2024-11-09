@@ -1,0 +1,23 @@
+label {
+    color: rgb(155, 200, 227) !important;
+}
+
+.event_search {
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 40px 15px 40px 15px;
+}
+
+.font-serif {
+    font-family: serif;
+}
+
+.required:after {
+    content: "*";
+    color: red;
+}
+
+hr {
+    color: white !important;
+}

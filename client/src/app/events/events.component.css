@@ -1,0 +1,32 @@
+
+table {
+    overflow: hidden !important;
+    border-radius: 15px;
+}
+
+
+img {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+}
+
+
+th {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    border: none !important;
+}
+
+tr {
+    cursor: pointer;
+}
+
+td {
+    border: none !important;
+}
+
+.details {
+    background-color: rgba(128, 128, 128, 0.25);
+    backdrop-filter: blur(10px);
+}

@@ -1,0 +1,31 @@
+<div class="container col-md-10 col-12">
+    <table *ngIf="showTable == true" class="table table-dark table-striped">
+        <thead class="text-white text-center bg-dark">
+            <th>Date/Time</th>
+            <th>Icon</th>
+            <th>Event</th>
+            <th>Genre</th>
+            <th>Venue</th>
+        </thead>
+        <tbody class="text-white text-center">
+            <tr *ngFor="let event of events_list" (click)="getDetails(event.Id)">
+                <td style="width: 15%;">{{event.Date}} <br> {{event.Time}}</td>
+                <td style="width: 15%"><img [src]="event.Icon" alt="event.Name" /></td>
+                <td style="width: 40%;"> {{event.Title}}</td>
+                <td style="width: 10%;">{{event.Genre}}</td>
+                <td style="width: 20%;">{{event.Venue}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="showDetails == true" class="container-fluid text-white details col-md-7 col-12">
+    <div class="row btn-group pt-3">
+        <div class="btn text-white justify-content-start col-2" (click)="showDetails = false; showTable = true">
+            &lt; <u>Back</u></div>
+    </div>
+    <app-details [details]="details" [venue_details]="venue_details" [musicArtists]="musicArtists"></app-details>
+</div>
+
+<br>
+

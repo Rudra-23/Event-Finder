@@ -1,0 +1,64 @@
+<div class="container my-5">
+    <div class="container event_search col-md-6 col-12">
+        <p class="text-center font-serif text-white display-6">Events Search</p>
+        <hr>
+        <form ngNativeValidate (ngSubmit)="getValues()">
+
+            <div class="mb-3">
+                <label for="keyword" class="form-label text-blue required">Keyword</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" [(ngModel)]="keyword" required
+                    [matAutocomplete]="auto" [formControl]="searchKeywords" #KeywordInput>
+                <mat-autocomplete [panelWidth]="KeywordInput.style.width" #auto="matAutocomplete">
+                    <mat-option *ngIf="isLoading" class="is-loading"><mat-progress-spinner [diameter]="40"
+                            mode="indeterminate"></mat-progress-spinner></mat-option>
+                    <ng-container *ngIf="!isLoading">
+                        <mat-option *ngFor="let option of keywords_arr" [value]="option">
+                            <span>{{option}}</span>
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-12 mb-3">
+                    <label for="distance" class="form-label">Distance</label>
+                    <input type="number" class="form-control" id="distance" name="distance" [(ngModel)]="distance"
+                        placeholder="10">
+                </div>
+                <div class="col-md-5 col-8 mb-3">
+                    <label for="category" class="form-label required">Category</label>
+                    <select class="form-select" id="category" name="category" required [(ngModel)]="category">
+                        <option value="Default" selected>Default</option>
+                        <option value="Music">Music</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Theatre">Theatre</option>
+                        <option value="Film">Film</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="locationText" class="form-label text-blue required">Location</label>
+                <input type="text" class="form-control" id="locationText" name="locationText" required
+                    [(ngModel)]="locationText">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="location" name="location" [(ngModel)]="location"
+                    (click)="disable()">
+                <label class="form-check-label" for="location">Auto-Detect your location</label>
+            </div>
+
+            <div class="row justify-content-center">
+                <button type="submit" class="col-md-2 col-4 btn btn-danger mx-2">SUBMIT</button>
+                <button type="reset" (click)="resetValues($event)"
+                    class="btn btn-primary mx-2 col-md-2 col-4">CLEAR</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <app-events *ngIf="showTable == true" [events_list]="table_data"></app-events>
+    <app-message *ngIf="showMessage == true" [message]="'No results available'"></app-message>
+</div>

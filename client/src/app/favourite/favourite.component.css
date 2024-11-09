@@ -1,0 +1,9 @@
+table {
+    overflow: hidden !important;
+    border-radius: 15px;
+}
+
+div.fav_events {
+    color: aqua;
+    font-size: large;
+}

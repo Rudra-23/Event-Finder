@@ -1,0 +1,118 @@
+.details_title {
+    font-size: large;
+}
+
+span {
+    color: aqua;
+    font-size: large;
+}
+
+.green {
+    background-color: green !important;
+}
+
+.red {
+    background-color: red !important;
+}
+
+.orange {
+    background-color: orange !important;
+}
+
+.black {
+    background-color: black !important;
+}
+
+.carousel-item {
+    display: block;
+}
+
+.artist_image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+::ng-deep .mat-mdc-tab-label-container {
+    background-color: rgb(72, 153, 137) !important;
+} 
+
+::ng-deep .mdc-tab__text-label {
+    color: rgb(210, 207, 207) !important;
+}
+
+::ng-deep .mdc-tab-indicator--active > .mdc-tab__content > .mdc-tab__text-label {
+    color: white !important;
+}
+
+
+.circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #e3e3e3;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-solid {
+    font-size: 20px;
+    color: red;
+}
+
+.fa-regular {
+    font-size: 20px;
+    color: black;
+}
+
+i {
+    font-size: 30px;
+}
+
+.fa-spotify {
+    color: green;
+}
+
+.fa-facebook {
+    color: rgb(5, 81, 209);
+}
+
+.artist_carousel {
+    overflow: hidden;
+}
+
+
+/* Credits: Code used from https: //stackoverflow.com/questions/63376172/how-can-i-use-webkit-line-clamp */
+.text-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;   
+}
+
+
+.toggle {
+    color:rgb(119, 180, 205);
+}
+
+.arrow {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 2px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    margin-top: 1px;
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-bottom: 1px;
+}

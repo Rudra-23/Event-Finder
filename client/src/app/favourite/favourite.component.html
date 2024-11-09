@@ -1,0 +1,36 @@
+
+
+
+<div class="container mt-20">
+    <div *ngIf="fav_data.length == 0">
+        <app-message [message]="'No favorite events to show'"></app-message>
+    </div>
+    <ng-container *ngIf="fav_data.length != 0">
+        <div class="fav_events col-md-12 col-12 text-center mb-3">List of your favorite events</div>
+        <table class="fav_table table table-hover table-light">
+            <thead class="bg-light text-center">
+                <th>#</th>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Category</th>
+                <th>Venue</th>
+                <th>Favourite</th>
+            </thead>
+            <tbody class="text-center">
+
+                <tr *ngFor="let fav of fav_data; let i  = index" [id]="fav.id">
+                    <td style="width: 5%;">{{i+1}}</td>
+                    <td style="width: 15%;">{{fav.Date}}</td>
+                    <td style="width: 25%;">{{fav.title}}</td>
+                    <td style="width: 25%;">{{fav.genre_arr | formatArrays}}</td>
+                    <td style="width: 20%;">{{fav.venue}}</td>
+                    <td style="width: 10%;">
+                        <div (click)="deleteFav(this.fav, i)" style="cursor: pointer;">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>
